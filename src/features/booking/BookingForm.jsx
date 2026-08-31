@@ -1,7 +1,14 @@
 import "./BookingForm.css";
 import Button from "../../components/Button/Button";
 
-function BookingForm() {
+function BookingForm({ availableTimes, dispatch }) {
+  const handleDateChange = (event) => {
+    dispatch({
+      type: "UPDATE_TIMES",
+      date: event.target.value,
+    });
+  };
+
   return (
     <form className="booking-form">
       <div className="booking-form__field">
@@ -10,6 +17,7 @@ function BookingForm() {
           id="booking-date"
           name="date"
           type="date"
+          onChange={handleDateChange}
         />
       </div>
 
@@ -17,10 +25,12 @@ function BookingForm() {
         <label htmlFor="booking-time">Time</label>
         <select id="booking-time" name="time">
           <option value="">Select a time</option>
-          <option value="17:00">17:00</option>
-          <option value="18:00">18:00</option>
-          <option value="19:00">19:00</option>
-          <option value="20:00">20:00</option>
+
+          {availableTimes.map((time) => (
+            <option key={time} value={time}>
+              {time}
+            </option>
+          ))}
         </select>
       </div>
 
