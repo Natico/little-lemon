@@ -1,0 +1,24 @@
+.booking-page {
+  background: var(--color-primary-green);
+  min-height: calc(100vh - 160px);
+  padding: var(--space-2xl) 0;
+}
+
+.booking-page__content {
+  width: min(100% - 32px, 960px);
+  margin: 0 auto;
+}
+
+.booking-page__intro {
+  margin-bottom: var(--space-xl);
+}
+
+.booking-page__intro .display-title {
+  margin-bottom: 0;
+  color: var(--color-primary-yellow);
+}
+
+.booking-page__intro .sub-title,
+.booking-page__intro .paragraph {
+  color: #ffffff;
+}
