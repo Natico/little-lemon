@@ -57,7 +57,7 @@ function ConfirmedBookingPage() {
             </div>
           </dl>
 
-          <Button onClick={() => navigate("/")}>Back to Home</Button>
+          <Button onClick={() => navigate("/booking")}>Make another reservation</Button>
         </div>
       </div>
     </section>

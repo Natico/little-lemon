@@ -4,6 +4,7 @@ import Button from "../../components/Button/Button";
 import "./CustomerDetailsPage.css";
 import {
   loadBookingDraft,
+  loadCustomerDraft,
   saveCustomerDraft,
 } from "../../features/booking/bookingStorage";
 
@@ -13,13 +14,20 @@ function CustomerDetailsPage() {
 
   const bookingData = location.state?.bookingData || loadBookingDraft();
 
+  const savedCustomerDraft = location.state?.customerData || loadCustomerDraft();
+
   const [customerData, setCustomerData] = useState({
-    firstName: "",
-    lastName: "",
-    phone: "",
-    email: "",
-    specialRequest: "",
+    firstName: savedCustomerDraft?.firstName || "",
+    lastName: savedCustomerDraft?.lastName || "",
+    phone: savedCustomerDraft?.phone || "",
+    email: savedCustomerDraft?.email || "",
+    specialRequest: savedCustomerDraft?.specialRequest || "",
   });
+  const isFormValid =
+    customerData.firstName.trim() &&
+    customerData.lastName.trim() &&
+    customerData.phone.trim() &&
+    customerData.email.trim();
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -76,6 +84,7 @@ function CustomerDetailsPage() {
               type="text"
               value={customerData.firstName}
               onChange={handleChange}
+              required
             />
           </div>
 
@@ -87,6 +96,7 @@ function CustomerDetailsPage() {
               type="text"
               value={customerData.lastName}
               onChange={handleChange}
+              required
             />
           </div>
 
@@ -98,6 +108,7 @@ function CustomerDetailsPage() {
               type="tel"
               value={customerData.phone}
               onChange={handleChange}
+              required
             />
           </div>
 
@@ -109,6 +120,7 @@ function CustomerDetailsPage() {
               type="email"
               value={customerData.email}
               onChange={handleChange}
+              required
             />
           </div>
 
@@ -127,7 +139,9 @@ function CustomerDetailsPage() {
             <Button type="button" onClick={() => navigate("/booking")}>
               Back
             </Button>
-            <Button type="submit">Continue</Button>
+            <Button type="submit" disabled={!isFormValid}>
+              Continue
+            </Button>
           </div>
         </form>
       </div>

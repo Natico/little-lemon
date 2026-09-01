@@ -127,6 +127,7 @@ function BookingReviewPage() {
                 navigate("/booking/details", {
                   state: {
                     bookingData,
+                    customerData,
                   },
                 })
               }
