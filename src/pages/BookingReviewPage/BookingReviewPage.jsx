@@ -1,6 +1,7 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import Button from "../../components/Button/Button";
 import "./BookingReviewPage.css";
+import { submitAPI } from "../../services/bookingApi";
 
 function BookingReviewPage() {
   const location = useLocation();
@@ -8,6 +9,23 @@ function BookingReviewPage() {
 
   const bookingData = location.state?.bookingData;
   const customerData = location.state?.customerData;
+
+  const handleConfirmReservation = () => {
+    const reservationData = {
+      ...bookingData,
+      ...customerData,
+    };
+
+    const isSubmitted = submitAPI(reservationData);
+
+    if (isSubmitted) {
+      navigate("/booking/confirmed", {
+        state: {
+          reservationData,
+        },
+      });
+    }
+  };
 
   if (!bookingData || !customerData) {
     return (
@@ -107,7 +125,10 @@ function BookingReviewPage() {
               Back
             </Button>
 
-            <Button type="button" onClick={() => navigate("/booking/confirmed")}>
+            <Button
+              type="button"
+              onClick={handleConfirmReservation}
+            >
               Confirm Reservation
             </Button>
           </div>
