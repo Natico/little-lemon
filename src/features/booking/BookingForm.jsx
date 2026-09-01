@@ -2,14 +2,20 @@ import { useState } from "react";
 import Button from "../../components/Button/Button";
 import "./BookingForm.css";
 
-function BookingForm({ availableTimes, dispatch, onSubmit }) {
+function BookingForm({ availableTimes, dispatch, onSubmit, initialData }) {
   const [formData, setFormData] = useState({
-    date: "",
-    time: "",
-    guests: "2",
-    occasion: "",
-    seating: "standard",
+    date: initialData?.date || "",
+    time: initialData?.time || "",
+    guests: initialData?.guests || "2",
+    occasion: initialData?.occasion || "",
+    seating: initialData?.seating || "standard",
   });
+
+  const isFormValid =
+    formData.date &&
+    formData.time &&
+    Number(formData.guests) >= 1 &&
+    Number(formData.guests) <= 10;
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -50,6 +56,7 @@ function BookingForm({ availableTimes, dispatch, onSubmit }) {
           type="date"
           value={formData.date}
           onChange={handleDateChange}
+          required
         />
       </div>
 
@@ -60,6 +67,7 @@ function BookingForm({ availableTimes, dispatch, onSubmit }) {
           name="time"
           value={formData.time}
           onChange={handleChange}
+          required
         >
           <option value="">Select a time</option>
           {availableTimes.map((time) => (
@@ -80,6 +88,7 @@ function BookingForm({ availableTimes, dispatch, onSubmit }) {
           max="10"
           value={formData.guests}
           onChange={handleChange}
+          required
         />
       </div>
 
@@ -123,7 +132,9 @@ function BookingForm({ availableTimes, dispatch, onSubmit }) {
         </label>
       </fieldset>
 
-      <Button type="submit">Let's go</Button>
+      <Button type="submit" disabled={!isFormValid}>
+        Let's go
+      </Button>
     </form>
   );
 }

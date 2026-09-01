@@ -9,10 +9,14 @@ import {
 
 import "./BookingPage.css";
 
-import { saveBookingDraft } from "../../features/booking/bookingStorage";
+import {
+  loadBookingDraft,
+  saveBookingDraft,
+} from "../../features/booking/bookingStorage";
 
 function BookingPage() {
   const navigate = useNavigate();
+  const savedBookingDraft = loadBookingDraft();
 
   const [availableTimes, dispatch] = useReducer(
     updateTimes,
@@ -43,6 +47,7 @@ function BookingPage() {
           availableTimes={availableTimes}
           dispatch={dispatch}
           onSubmit={handleBookingSubmit}
+          initialData={savedBookingDraft}
         />
       </div>
     </section>
