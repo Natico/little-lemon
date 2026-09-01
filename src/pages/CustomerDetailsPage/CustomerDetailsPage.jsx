@@ -14,7 +14,8 @@ function CustomerDetailsPage() {
 
   const bookingData = location.state?.bookingData || loadBookingDraft();
 
-  const savedCustomerDraft = location.state?.customerData || loadCustomerDraft();
+  const savedCustomerDraft =
+    location.state?.customerData || loadCustomerDraft();
 
   const [customerData, setCustomerData] = useState({
     firstName: savedCustomerDraft?.firstName || "",
@@ -23,6 +24,14 @@ function CustomerDetailsPage() {
     email: savedCustomerDraft?.email || "",
     specialRequest: savedCustomerDraft?.specialRequest || "",
   });
+
+  const [touched, setTouched] = useState({
+    firstName: false,
+    lastName: false,
+    phone: false,
+    email: false,
+  });
+
   const isFormValid =
     customerData.firstName.trim() &&
     customerData.lastName.trim() &&
@@ -50,6 +59,17 @@ function CustomerDetailsPage() {
       },
     });
   };
+
+  const handleBlur = (event) => {
+    const { name } = event.target;
+
+    setTouched((current) => ({
+      ...current,
+      [name]: true,
+    }));
+  };
+
+  const isEmailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(customerData.email);
 
   if (!bookingData) {
     return (
@@ -84,8 +104,15 @@ function CustomerDetailsPage() {
               type="text"
               value={customerData.firstName}
               onChange={handleChange}
+              onBlur={handleBlur}
               required
+              aria-invalid={touched.firstName && !customerData.firstName.trim()}
             />
+            {touched.firstName && !customerData.firstName.trim() && (
+              <p className="form-error" role="alert">
+                First name is required.
+              </p>
+            )}
           </div>
 
           <div className="customer-details-form__field">
@@ -96,8 +123,15 @@ function CustomerDetailsPage() {
               type="text"
               value={customerData.lastName}
               onChange={handleChange}
+              onBlur={handleBlur}
               required
+              aria-invalid={touched.lastName && !customerData.lastName.trim()}
             />
+            {touched.lastName && !customerData.lastName.trim() && (
+              <p className="form-error" role="alert">
+                Last name is required.
+              </p>
+            )}
           </div>
 
           <div className="customer-details-form__field">
@@ -108,8 +142,15 @@ function CustomerDetailsPage() {
               type="tel"
               value={customerData.phone}
               onChange={handleChange}
+              onBlur={handleBlur}
               required
+              aria-invalid={touched.phone && !customerData.phone.trim()}
             />
+            {touched.phone && !customerData.phone.trim() && (
+              <p className="form-error" role="alert">
+                Phone number is required.
+              </p>
+            )}
           </div>
 
           <div className="customer-details-form__field">
@@ -120,8 +161,15 @@ function CustomerDetailsPage() {
               type="email"
               value={customerData.email}
               onChange={handleChange}
+              onBlur={handleBlur}
               required
+              aria-invalid={touched.email && !isEmailValid}
             />
+            {touched.email && !isEmailValid && (
+              <p className="form-error" role="alert">
+                Please enter a valid email address.
+              </p>
+            )}
           </div>
 
           <div className="customer-details-form__field">
