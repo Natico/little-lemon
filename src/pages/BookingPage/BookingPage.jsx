@@ -1,4 +1,5 @@
 import { useReducer } from "react";
+import { useNavigate } from "react-router-dom";
 
 import BookingForm from "../../features/booking/BookingForm";
 import {
@@ -9,11 +10,21 @@ import {
 import "./BookingPage.css";
 
 function BookingPage() {
+  const navigate = useNavigate();
+
   const [availableTimes, dispatch] = useReducer(
     updateTimes,
     [],
     initializeTimes
   );
+
+  const handleBookingSubmit = (bookingData) => {
+    navigate("/booking/details", {
+      state: {
+        bookingData,
+      },
+    });
+  };
 
   return (
     <section className="booking-page">
@@ -27,6 +38,7 @@ function BookingPage() {
         <BookingForm
           availableTimes={availableTimes}
           dispatch={dispatch}
+          onSubmit={handleBookingSubmit}
         />
       </div>
     </section>
