@@ -1,0 +1,55 @@
+.confirmed-booking-page {
+  background: var(--color-secondary-light);
+  padding: var(--space-2xl) var(--space-lg);
+}
+
+.confirmed-booking-page__content {
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.confirmed-booking-card {
+  display: grid;
+  gap: var(--space-lg);
+  padding: var(--space-xl);
+  border-radius: var(--radius-md);
+  background: #ffffff;
+  text-align: center;
+}
+
+.confirmed-booking-card__eyebrow {
+  margin: 0;
+  color: var(--color-primary-green);
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.confirmed-booking-list {
+  display: grid;
+  gap: var(--space-md);
+  margin: 0;
+  text-align: left;
+}
+
+.confirmed-booking-list div {
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  gap: var(--space-md);
+  padding-bottom: var(--space-sm);
+  border-bottom: 1px solid var(--color-secondary-light);
+}
+
+.confirmed-booking-list dt {
+  font-weight: 700;
+}
+
+.confirmed-booking-list dd {
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .confirmed-booking-list div {
+    grid-template-columns: 1fr;
+    gap: var(--space-xs);
+  }
+}
