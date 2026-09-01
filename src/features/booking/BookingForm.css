@@ -28,6 +28,13 @@
   font: inherit;
 }
 
+.booking-form input,
+.booking-form select,
+.booking-form textarea {
+  width: 100%;
+  max-width: 100%;
+}
+
 .booking-form__seating {
   display: flex;
   gap: var(--space-lg);
@@ -62,4 +69,11 @@
   .booking-form__seating {
     flex-direction: column;
   }
+}
+
+.form-error {
+  margin: var(--space-xs) 0 0;
+  color: #b42318;
+  font-size: 14px;
+  line-height: 1.4;
 }

@@ -11,6 +11,21 @@ function BookingForm({ availableTimes, dispatch, onSubmit, initialData }) {
     seating: initialData?.seating || "standard",
   });
 
+  const [touched, setTouched] = useState({
+    date: false,
+    time: false,
+    guests: false,
+  });
+
+  const handleBlur = (event) => {
+    const { name } = event.target;
+
+    setTouched((current) => ({
+      ...current,
+      [name]: true,
+    }));
+  };
+
   const isFormValid =
     formData.date &&
     formData.time &&
@@ -56,8 +71,15 @@ function BookingForm({ availableTimes, dispatch, onSubmit, initialData }) {
           type="date"
           value={formData.date}
           onChange={handleDateChange}
+          onBlur={handleBlur}
           required
+          aria-invalid={touched.date && !formData.date}
         />
+        {touched.date && !formData.date && (
+          <p className="form-error" role="alert">
+            Please select a reservation date.
+          </p>
+        )}
       </div>
 
       <div className="booking-form__field">
@@ -67,7 +89,9 @@ function BookingForm({ availableTimes, dispatch, onSubmit, initialData }) {
           name="time"
           value={formData.time}
           onChange={handleChange}
+          onBlur={handleBlur}
           required
+          aria-invalid={touched.time && !formData.time}
         >
           <option value="">Select a time</option>
           {availableTimes.map((time) => (
@@ -76,6 +100,11 @@ function BookingForm({ availableTimes, dispatch, onSubmit, initialData }) {
             </option>
           ))}
         </select>
+        {touched.time && !formData.time && (
+          <p className="form-error" role="alert">
+            Please select a reservation time.
+          </p>
+        )}
       </div>
 
       <div className="booking-form__field">
@@ -88,8 +117,19 @@ function BookingForm({ availableTimes, dispatch, onSubmit, initialData }) {
           max="10"
           value={formData.guests}
           onChange={handleChange}
+          onBlur={handleBlur}
           required
+          aria-invalid={
+            touched.guests &&
+            (Number(formData.guests) < 1 || Number(formData.guests) > 10)
+          }
         />
+        {touched.guests &&
+          (Number(formData.guests) < 1 || Number(formData.guests) > 10) && (
+            <p className="form-error" role="alert">
+              Number of diners must be between 1 and 10.
+            </p>
+          )}
       </div>
 
       <div className="booking-form__field">
