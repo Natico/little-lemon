@@ -1,0 +1,65 @@
+.booking-review-page {
+  background: var(--color-secondary-light);
+  padding: var(--space-2xl) var(--space-lg);
+}
+
+.booking-review-page__content {
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.booking-review-page__intro {
+  margin-bottom: var(--space-xl);
+}
+
+.booking-review-card {
+  display: grid;
+  gap: var(--space-xl);
+  padding: var(--space-xl);
+  border-radius: var(--radius-md);
+  background: #ffffff;
+}
+
+.booking-review-card__section {
+  display: grid;
+  gap: var(--space-md);
+}
+
+.booking-review-list {
+  display: grid;
+  gap: var(--space-md);
+  margin: 0;
+}
+
+.booking-review-list div {
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  gap: var(--space-md);
+  padding-bottom: var(--space-sm);
+  border-bottom: 1px solid var(--color-secondary-light);
+}
+
+.booking-review-list dt {
+  font-weight: 700;
+}
+
+.booking-review-list dd {
+  margin: 0;
+}
+
+.booking-review-card__actions {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-md);
+}
+
+@media (max-width: 768px) {
+  .booking-review-list div {
+    grid-template-columns: 1fr;
+    gap: var(--space-xs);
+  }
+
+  .booking-review-card__actions {
+    flex-direction: column;
+  }
+}
