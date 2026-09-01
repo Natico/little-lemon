@@ -9,6 +9,8 @@ import {
 
 import "./BookingPage.css";
 
+import { saveBookingDraft } from "../../features/booking/bookingStorage";
+
 function BookingPage() {
   const navigate = useNavigate();
 
@@ -19,6 +21,8 @@ function BookingPage() {
   );
 
   const handleBookingSubmit = (bookingData) => {
+    saveBookingDraft(bookingData);
+
     navigate("/booking/details", {
       state: {
         bookingData,

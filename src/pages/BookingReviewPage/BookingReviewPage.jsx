@@ -3,12 +3,19 @@ import Button from "../../components/Button/Button";
 import "./BookingReviewPage.css";
 import { submitAPI } from "../../services/bookingApi";
 
+import {
+  clearBookingDrafts,
+  loadBookingDraft,
+  loadCustomerDraft,
+  saveLastBooking,
+} from "../../features/booking/bookingStorage";
+
 function BookingReviewPage() {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const bookingData = location.state?.bookingData;
-  const customerData = location.state?.customerData;
+  const bookingData = location.state?.bookingData || loadBookingDraft();
+  const customerData = location.state?.customerData || loadCustomerDraft();
 
   const handleConfirmReservation = () => {
     const reservationData = {
@@ -19,6 +26,8 @@ function BookingReviewPage() {
     const isSubmitted = submitAPI(reservationData);
 
     if (isSubmitted) {
+      saveLastBooking(reservationData);
+      clearBookingDrafts();
       navigate("/booking/confirmed", {
         state: {
           reservationData,
@@ -125,10 +134,7 @@ function BookingReviewPage() {
               Back
             </Button>
 
-            <Button
-              type="button"
-              onClick={handleConfirmReservation}
-            >
+            <Button type="button" onClick={handleConfirmReservation}>
               Confirm Reservation
             </Button>
           </div>

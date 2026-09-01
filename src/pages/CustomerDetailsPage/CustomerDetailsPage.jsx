@@ -2,12 +2,16 @@ import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Button from "../../components/Button/Button";
 import "./CustomerDetailsPage.css";
+import {
+  loadBookingDraft,
+  saveCustomerDraft,
+} from "../../features/booking/bookingStorage";
 
 function CustomerDetailsPage() {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const bookingData = location.state?.bookingData;
+  const bookingData = location.state?.bookingData || loadBookingDraft();
 
   const [customerData, setCustomerData] = useState({
     firstName: "",
@@ -28,6 +32,8 @@ function CustomerDetailsPage() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+
+    saveCustomerDraft(customerData);
 
     navigate("/booking/review", {
       state: {

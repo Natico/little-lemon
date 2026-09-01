@@ -1,12 +1,13 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import Button from "../../components/Button/Button";
 import "./ConfirmedBookingPage.css";
+import { loadLastBooking } from "../../features/booking/bookingStorage";
 
 function ConfirmedBookingPage() {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const reservationData = location.state?.reservationData;
+  const reservationData = location.state?.reservationData || loadLastBooking();
 
   if (!reservationData) {
     return (
