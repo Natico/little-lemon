@@ -61,6 +61,8 @@ function BookingForm({ availableTimes, dispatch, onSubmit, initialData }) {
     onSubmit(formData);
   };
 
+  const today = new Date().toISOString().split("T")[0];
+
   return (
     <form className="booking-form" onSubmit={handleSubmit}>
       <div className="booking-form__field">
@@ -69,6 +71,7 @@ function BookingForm({ availableTimes, dispatch, onSubmit, initialData }) {
           id="booking-date"
           name="date"
           type="date"
+          min={today}
           value={formData.date}
           onChange={handleDateChange}
           onBlur={handleBlur}
@@ -90,6 +93,7 @@ function BookingForm({ availableTimes, dispatch, onSubmit, initialData }) {
           value={formData.time}
           onChange={handleChange}
           onBlur={handleBlur}
+          disabled={availableTimes.length === 0}
           required
           aria-invalid={touched.time && !formData.time}
         >
@@ -103,6 +107,11 @@ function BookingForm({ availableTimes, dispatch, onSubmit, initialData }) {
         {touched.time && !formData.time && (
           <p className="form-error" role="alert">
             Please select a reservation time.
+          </p>
+        )}
+        {formData.date && availableTimes.length === 0 && (
+          <p className="form-error" role="status">
+            No reservation times are available for this date.
           </p>
         )}
       </div>

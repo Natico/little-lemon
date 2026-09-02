@@ -139,4 +139,30 @@ describe("BookingForm", () => {
       }),
     );
   });
+  test("date field does not allow dates before today", () => {
+    renderBookingForm();
+
+    const dateInput = screen.getByLabelText(/date/i);
+    const today = new Date().toISOString().split("T")[0];
+
+    expect(dateInput).toHaveAttribute("min", today);
+  });
+  test("shows unavailable message when no times are available", () => {
+    renderBookingForm({
+      availableTimes: [],
+      initialData: {
+        date: "2026-09-10",
+        time: "",
+        guests: "2",
+        occasion: "",
+        seating: "standard",
+      },
+    });
+
+    expect(
+      screen.getByText(/no reservation times are available/i),
+    ).toBeInTheDocument();
+
+    expect(screen.getByLabelText(/time/i)).toBeDisabled();
+  });
 });

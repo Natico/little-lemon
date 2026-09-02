@@ -10,6 +10,8 @@ import {
   saveLastBooking,
 } from "../../features/booking/bookingStorage";
 
+import { useState } from "react";
+
 function BookingReviewPage() {
   const location = useLocation();
   const navigate = useNavigate();
@@ -17,7 +19,11 @@ function BookingReviewPage() {
   const bookingData = location.state?.bookingData || loadBookingDraft();
   const customerData = location.state?.customerData || loadCustomerDraft();
 
+  const [submitError, setSubmitError] = useState("");
+
   const handleConfirmReservation = () => {
+    setSubmitError("");
+
     const reservationData = {
       ...bookingData,
       ...customerData,
@@ -28,12 +34,17 @@ function BookingReviewPage() {
     if (isSubmitted) {
       saveLastBooking(reservationData);
       clearBookingDrafts();
+
       navigate("/booking/confirmed", {
         state: {
           reservationData,
         },
       });
+
+      return;
     }
+
+    setSubmitError("We could not complete your reservation. Please try again.");
   };
 
   if (!bookingData || !customerData) {
@@ -138,6 +149,11 @@ function BookingReviewPage() {
             <Button type="button" onClick={handleConfirmReservation}>
               Confirm Reservation
             </Button>
+            {submitError && (
+              <p className="form-error" role="alert">
+                {submitError}
+              </p>
+            )}
           </div>
         </div>
       </div>
