@@ -12,6 +12,7 @@ test("renders Little Lemon home page", () => {
   expect(
     screen.getByRole("heading", {
       name: /little lemon/i,
+      level: 1,
     })
   ).toBeInTheDocument();
 });

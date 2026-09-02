@@ -20,7 +20,7 @@ function BookingPage() {
 
   const [availableTimes, dispatch] = useReducer(
     updateTimes,
-    [],
+    savedBookingDraft?.date,
     initializeTimes
   );
 

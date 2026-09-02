@@ -2,18 +2,27 @@ const BOOKING_DRAFT_KEY = "littleLemon.bookingDraft";
 const CUSTOMER_DRAFT_KEY = "littleLemon.customerDraft";
 const LAST_BOOKING_KEY = "littleLemon.lastBooking";
 
+function loadStoredJson(key) {
+  const savedValue = localStorage.getItem(key);
+
+  if (!savedValue) {
+    return null;
+  }
+
+  try {
+    return JSON.parse(savedValue);
+  } catch (error) {
+    localStorage.removeItem(key);
+    return null;
+  }
+}
+
 export function saveBookingDraft(bookingData) {
   localStorage.setItem(BOOKING_DRAFT_KEY, JSON.stringify(bookingData));
 }
 
 export function loadBookingDraft() {
-  const savedBooking = localStorage.getItem(BOOKING_DRAFT_KEY);
-
-  if (!savedBooking) {
-    return null;
-  }
-
-  return JSON.parse(savedBooking);
+  return loadStoredJson(BOOKING_DRAFT_KEY);
 }
 
 export function saveCustomerDraft(customerData) {
@@ -21,13 +30,7 @@ export function saveCustomerDraft(customerData) {
 }
 
 export function loadCustomerDraft() {
-  const savedCustomer = localStorage.getItem(CUSTOMER_DRAFT_KEY);
-
-  if (!savedCustomer) {
-    return null;
-  }
-
-  return JSON.parse(savedCustomer);
+  return loadStoredJson(CUSTOMER_DRAFT_KEY);
 }
 
 export function saveLastBooking(reservationData) {
@@ -35,13 +38,7 @@ export function saveLastBooking(reservationData) {
 }
 
 export function loadLastBooking() {
-  const savedBooking = localStorage.getItem(LAST_BOOKING_KEY);
-
-  if (!savedBooking) {
-    return null;
-  }
-
-  return JSON.parse(savedBooking);
+  return loadStoredJson(LAST_BOOKING_KEY);
 }
 
 export function clearBookingDrafts() {

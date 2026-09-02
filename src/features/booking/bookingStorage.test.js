@@ -67,4 +67,25 @@ describe("bookingStorage", () => {
     expect(loadBookingDraft()).toBeNull();
     expect(loadCustomerDraft()).toBeNull();
   });
+
+  test("returns null and clears invalid stored booking draft JSON", () => {
+    localStorage.setItem("littleLemon.bookingDraft", "{invalid-json");
+
+    expect(loadBookingDraft()).toBeNull();
+    expect(localStorage.getItem("littleLemon.bookingDraft")).toBeNull();
+  });
+
+  test("returns null and clears invalid stored customer draft JSON", () => {
+    localStorage.setItem("littleLemon.customerDraft", "{invalid-json");
+
+    expect(loadCustomerDraft()).toBeNull();
+    expect(localStorage.getItem("littleLemon.customerDraft")).toBeNull();
+  });
+
+  test("returns null and clears invalid stored last booking JSON", () => {
+    localStorage.setItem("littleLemon.lastBooking", "{invalid-json");
+
+    expect(loadLastBooking()).toBeNull();
+    expect(localStorage.getItem("littleLemon.lastBooking")).toBeNull();
+  });
 });

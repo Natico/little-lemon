@@ -1,5 +1,6 @@
 import "./HomePage.css";
 import Button from "../../components/Button/Button";
+import { useNavigate } from "react-router-dom";
 
 import restaurantFood from "../../assets/restauranfood.jpg";
 import greekSalad from "../../assets/greek salad.jpg";
@@ -7,6 +8,8 @@ import bruschetta from "../../assets/bruchetta.svg";
 import lemonDessert from "../../assets/lemon dessert.jpg";
 
 function HomePage() {
+  const navigate = useNavigate();
+
   return (
     <>
       <section className="hero">
@@ -20,7 +23,7 @@ function HomePage() {
               traditional recipes served with a modern twist.
             </p>
 
-            <Button>Reserve a Table</Button>
+            <Button onClick={() => navigate("/booking")}>Reserve a Table</Button>
           </div>
 
           <img
@@ -34,7 +37,7 @@ function HomePage() {
       <section className="specials">
         <div className="specials__header">
           <h2 className="sub-title">This week's specials!</h2>
-          <Button>Online Menu</Button>
+          <Button disabled>Online Menu</Button>
         </div>
 
         <div className="specials__grid">
@@ -52,7 +55,7 @@ function HomePage() {
                 Chicago style feta cheese.
               </p>
 
-              <a href="#order-online">Order a delivery</a>
+              <span className="special-card__disabled-action">Order a delivery</span>
             </div>
           </article>
 
@@ -70,7 +73,7 @@ function HomePage() {
                 with garlic and seasoned with salt and olive oil.
               </p>
 
-              <a href="#order-online">Order a delivery</a>
+              <span className="special-card__disabled-action">Order a delivery</span>
             </div>
           </article>
 
@@ -89,7 +92,7 @@ function HomePage() {
                 imagined.
               </p>
 
-              <a href="#order-online">Order a delivery</a>
+              <span className="special-card__disabled-action">Order a delivery</span>
             </div>
           </article>
         </div>

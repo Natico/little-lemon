@@ -82,9 +82,15 @@
   font-weight: 700;
 }
 
-.special-card a {
+.special-card a,
+.special-card__disabled-action {
   font-weight: 700;
   text-decoration: none;
+}
+
+.special-card__disabled-action {
+  cursor: not-allowed;
+  opacity: 0.55;
 }
 
 @media (max-width: 768px) {
