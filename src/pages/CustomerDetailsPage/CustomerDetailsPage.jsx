@@ -32,11 +32,13 @@ function CustomerDetailsPage() {
     email: false,
   });
 
+  const isEmailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(customerData.email);
+
   const isFormValid =
     customerData.firstName.trim() &&
     customerData.lastName.trim() &&
     customerData.phone.trim() &&
-    customerData.email.trim();
+    isEmailValid;
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -68,8 +70,6 @@ function CustomerDetailsPage() {
       [name]: true,
     }));
   };
-
-  const isEmailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(customerData.email);
 
   if (!bookingData) {
     return (

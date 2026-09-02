@@ -101,4 +101,40 @@ describe("CustomerDetailsPage", () => {
       screen.getByRole("button", { name: /continue/i })
     ).toBeEnabled();
   });
+
+  test("continue button stays disabled when email is invalid", () => {
+    renderPage();
+
+    fireEvent.change(screen.getByLabelText(/first name/i), {
+      target: {
+        name: "firstName",
+        value: "John",
+      },
+    });
+
+    fireEvent.change(screen.getByLabelText(/last name/i), {
+      target: {
+        name: "lastName",
+        value: "Doe",
+      },
+    });
+
+    fireEvent.change(screen.getByLabelText(/phone/i), {
+      target: {
+        name: "phone",
+        value: "123456789",
+      },
+    });
+
+    fireEvent.change(screen.getByLabelText(/email/i), {
+      target: {
+        name: "email",
+        value: "not-an-email",
+      },
+    });
+
+    expect(
+      screen.getByRole("button", { name: /continue/i })
+    ).toBeDisabled();
+  });
 });

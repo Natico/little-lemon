@@ -54,15 +54,15 @@ function Header() {
             </li>
 
             <li>
-              <a href="#about" onClick={closeMenu}>
+              <button type="button" disabled>
                 About
-              </a>
+              </button>
             </li>
 
             <li>
-              <a href="#menu" onClick={closeMenu}>
+              <button type="button" disabled>
                 Menu
-              </a>
+              </button>
             </li>
 
             <li>
@@ -72,15 +72,15 @@ function Header() {
             </li>
 
             <li>
-              <a href="#order-online" onClick={closeMenu}>
+              <button type="button" disabled>
                 Order Online
-              </a>
+              </button>
             </li>
 
             <li>
-              <a href="#login" onClick={closeMenu}>
+              <button type="button" disabled>
                 Login
-              </a>
+              </button>
             </li>
           </ul>
         </nav>

@@ -2,6 +2,7 @@ import {
   initializeTimes,
   updateTimes,
 } from "./bookingReducer";
+import { fetchAPI } from "../../services/bookingApi";
 
 describe("bookingReducer", () => {
   test("initializeTimes returns available booking times", () => {
@@ -9,6 +10,12 @@ describe("bookingReducer", () => {
 
     expect(Array.isArray(times)).toBe(true);
     expect(times.length).toBeGreaterThan(0);
+  });
+
+  test("initializeTimes returns times for an initial date when provided", () => {
+    const times = initializeTimes("2026-09-10");
+
+    expect(times).toEqual(fetchAPI(new Date("2026-09-10")));
   });
 
   test("updateTimes returns available times for selected date", () => {

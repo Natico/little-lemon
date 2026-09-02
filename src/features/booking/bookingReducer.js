@@ -1,7 +1,7 @@
 import { fetchAPI } from "../../services/bookingApi";
 
-export function initializeTimes() {
-  return fetchAPI(new Date());
+export function initializeTimes(initialDate) {
+  return fetchAPI(initialDate ? new Date(initialDate) : new Date());
 }
 
 export function updateTimes(state, action) {

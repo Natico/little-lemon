@@ -1,6 +1,7 @@
 .button {
   border: 0;
   border-radius: var(--radius-md);
+  min-height: 44px;
   padding: 12px 24px;
   background: var(--color-primary-yellow);
   color: var(--color-secondary-dark);
@@ -12,8 +13,4 @@
 .button:disabled {
   cursor: not-allowed;
   opacity: 0.5;
-}
-
-.button {
-  min-height: 44px;
 }
