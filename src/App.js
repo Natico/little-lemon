@@ -8,6 +8,7 @@ import BookingPage from "./pages/BookingPage/BookingPage";
 import CustomerDetailsPage from "./pages/CustomerDetailsPage/CustomerDetailsPage";
 import BookingReviewPage from "./pages/BookingReviewPage/BookingReviewPage";
 import ConfirmedBookingPage from "./pages/ConfirmedBookingPage/ConfirmedBookingPage";
+import NotFoundPage from "./pages/NotFoundPage/NotFoundPage";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
             path="/booking/confirmed"
             element={<ConfirmedBookingPage />}
           />
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </main>
 

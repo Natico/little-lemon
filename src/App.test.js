@@ -15,3 +15,15 @@ test("renders Little Lemon home page", () => {
     })
   ).toBeInTheDocument();
 });
+
+test("renders not found page for unknown routes", () => {
+  render(
+    <MemoryRouter initialEntries={["/unknown-page"]}>
+      <App />
+    </MemoryRouter>
+  );
+
+  expect(
+    screen.getByRole("heading", { name: /page not found/i })
+  ).toBeInTheDocument();
+});
